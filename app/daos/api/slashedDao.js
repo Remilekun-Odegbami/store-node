@@ -1,32 +1,30 @@
-const req = require('express/lib/request');
 const con = require('../../config/dbconfig');
-const daoCommon = require('../common/daoCommon');
+const commonDao = require('../common/daoCommon');
 
-const contactDao = {
-    ...daoCommon,
-
-    table: 'contact',
+const slashedDao = {
+    ...commonDao,
+    
+    table: 'slashedProduct',
 
     create: (req, res) => {
         if(Object.keys(req.body).length === 0) {
             res.json({
                 "error": true,
-                "message": "Please fill all fields" 
+                "message": "Product(s) not added"
             })
         } else {
             const fields = Object.keys(req.body) // creates an array
             const values = Object.values(req.body) 
-            console.log(req.body)
+
             con.execute(
-                ` INSERT INTO contact SET ${fields.join(' = ?, ')} = ?`,
+                ` INSERT INTO product SET ${fields.join(' = ?, ')} = ?`,
                 values,
                 (error, dbres) => {
                     if(!error) {
-                        res.send(`Congratulations, contact ${dbres.insertId} has been created`)
+                        res.send(`Last id: ${dbres.insertId}`)
                     } else {
-                        console.log('Contact Dao Error ', error)
+                        console.log('Slashed Product Dao Error ', error)
                         res.send('Message not sent')
-                        console.log(error)
                     }
                 }
             )
@@ -49,13 +47,13 @@ const contactDao = {
             const values = Object.values(req.body)
 
             con.execute(
-                `UPDATE contact SET ${fields.join(' = ?, ')} = ? WHERE User_id = ?`,
+                `UPDATE product SET ${fields.join(' = ?, ')} = ? WHERE ProductId = ?`,
                 [...values, req.params.id],
                 (error, dbres) => {
                     if(!error) {
                         res.send(`Changed ${dbres.changedRows} row(s)`)
                     } else {
-                        console.log('CONTACT DAO ERROR ', error)
+                        console.log('SLASHED PRODUCT DAO ERROR ', error)
                         res.send('Error updating record')
                     }
                 }
@@ -65,7 +63,7 @@ const contactDao = {
 
     sort: (req, res) => {
         con.execute(
-            `SELECT * FROM contact ORDER BY FName, LName`,
+            `SELECT * FROM slashedProduct ORDER BY ProductName, Rating`,
             [req.body],
             (error, rows) => {
                 if(!error) {
@@ -75,11 +73,11 @@ const contactDao = {
                         res.json(rows)
                     }
                 } else {
-                    console.log('CONTACT DAO ERROR ', error)
+                    console.log('SLASHED PRODUCT DAO ERROR ', error)
                 }
             }
         )
     }
 }
 
-module.exports = contactDao;
+module.exports = slashedDao;

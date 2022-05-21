@@ -15,8 +15,20 @@ const cartDao = {
     ...require('./api/cartDao')
 }
 
+const latestDao = {
+    ...daoCommon,
+    ...require('./api/latestDao')
+}
+
+const slashedDao = {
+    ...daoCommon,
+    ...require('./api/slashedDao')
+}
+
 module.exports = {
     contactDao,
     productsDao,
-    cartDao
+    cartDao,
+    latestDao,
+    slashedDao
 }

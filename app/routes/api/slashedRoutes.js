@@ -1,14 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-const { productsDao: dao } = require('../../daos/dao') 
+const { slashedDao: dao } = require('../../daos/dao') 
 
-// api/products
+// api/slashed
 router.get('/', (req, res) => {
     dao.findAll(res, dao.table)
 })
 
-// api/products/count
+// api/slashed/count
 router.get('/count', (req, res) => {
     dao.countAll(res, dao.table)
 })

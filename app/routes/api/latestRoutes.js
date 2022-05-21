@@ -1,14 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-const { productsDao: dao } = require('../../daos/dao') 
+const { latestDao: dao } = require('../../daos/dao') 
 
-// api/products
+// api/latest
 router.get('/', (req, res) => {
     dao.findAll(res, dao.table)
 })
 
-// api/products/count
+// api/latest/count
 router.get('/count', (req, res) => {
     dao.countAll(res, dao.table)
 })

@@ -21,11 +21,7 @@ router.get('/:id', (req, res) => {
     dao.findAll(res, dao.table, req.params.id)
 })
 
-// router.post('/create', (req, res) => {
-//     dao.create(req, res)
-// })
-
-router.post('/post', (req, res) => {
+router.post('/create', (req, res) => {
     dao.create(req, res)
 })
 

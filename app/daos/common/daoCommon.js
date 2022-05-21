@@ -12,7 +12,7 @@ const daoCommon = {
                         res.json(rows)
                     }
                 } else {
-                    console.log('DAO COMMON ERROR ', error)
+                    console.log('DAO COMMON Find All ERROR ', error)
                 }
             }
         )
@@ -29,7 +29,7 @@ const daoCommon = {
                         res.json(rows)
                     }
                 } else {
-                    console.log('DAO COMMON ERROR ', error)
+                    console.log('DAO COMMON Find By Id Error ', error)
                 }
             }
         )
