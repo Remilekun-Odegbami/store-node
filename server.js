@@ -1,29 +1,28 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
-// listen for requests 
-const PORT = process.env.PORT || 3009
-
+// listen for requests
+const PORT = process.env.PORT || 3009;
 
 // IMPORT SECURITY
-const helmet = require('helmet');
-const cors = require('cors');
+const helmet = require("helmet");
+const cors = require("cors");
 let corsOption = {
-    origin: "http://localhost:3000",
-    method: "GET, POST, DELETE, PUT, PATCH"
-}
+  origin: "http://localhost:3000",
+  method: "GET, POST, DELETE, PUT, PATCH",
+};
 
 app.use(helmet());
-app.use(cors(corsOption))
+app.use(cors(corsOption));
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome To Store API" });
+});
 
-const router = require('./app/routes/router');
-app.use('/api', router)
+const router = require("./app/routes/router");
+app.use("/api", router);
 
-app.listen(PORT, ()=> {
-    console.log(`Server is running on port ${PORT}`)
-})
-
-// {}
-
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
